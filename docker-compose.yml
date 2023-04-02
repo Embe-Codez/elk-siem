@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+
+  logstash:
+    build: 
+      context: ./logstash
+      dockerfile: dockerfile
+    volumes:
+      - ./logstash/config:/usr/share/logstash/pipeline
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - elknet
+
+  elasticsearch:
+    build: 
+      context: ./elasticsearch
+      dockerfile: dockerfile
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/config:/usr/share/elasticsearch/config:ro
+    environment:
+      - discovery.type=single-node
+    networks:
+      - elknet
+
+  kibana:
+    build: 
+      context: ./kibana
+      dockerfile: dockerfile
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - elknet
+
+networks:
+  elknet:

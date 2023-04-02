@@ -1,0 +1,4 @@
+cluster.name: main-cluster
+node.name: main-node
+network.host: _local_
+discovery.type: single-node
