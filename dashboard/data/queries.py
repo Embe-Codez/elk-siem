@@ -1,23 +1,21 @@
-def traffic_query(day):
-    query = {
-        "query": {
-            "bool": {
-                "must": [
-                    {
-                        "range": {
-                            "@timestamp": {
-                                "gte": f"now-{day}d/d",
-                                "lt": f"now-{day-1}d/d"
-                            }
-                        }
-                    },
-                    {
-                        "term": {
-                            "event.action": "allowed"
+query = {
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "range": {
+                        "@timestamp": {
+                            "gte": "now-{}d/d".format(day),
+                            "lt": "now-{}d/d".format(day - 1)
                         }
                     }
-                ]
-            }
+                },
+                {
+                    "term": {
+                        "event.action": "allowed"
+                    }
+                }
+            ]
         }
     }
-    return query
+}

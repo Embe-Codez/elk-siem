@@ -1,9 +1,8 @@
 version: '3.7'
 
 services:
-
   logstash:
-    build: 
+    build:
       context: ./logstash
       dockerfile: dockerfile
     volumes:
@@ -16,7 +15,7 @@ services:
       - elknet
 
   elasticsearch:
-    build: 
+    build:
       context: ./elasticsearch
       dockerfile: dockerfile
     volumes:
@@ -28,7 +27,7 @@ services:
       - elknet
 
   kibana:
-    build: 
+    build:
       context: ./kibana
       dockerfile: dockerfile
     volumes:

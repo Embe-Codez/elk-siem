@@ -12,6 +12,7 @@ class ElasticsearchClient:
     def search(self, index, body):
         return self.client.search(index=index, body=body)
 
+
 class DataProcessor:
     def __init__(self, data):
         self.df = self.clean_data(data)
@@ -48,7 +49,6 @@ class DataProcessor:
             fig.update_layout(self.layout)
 
         return figs
-
 
 class Dashboard:
     def __init__(self):
